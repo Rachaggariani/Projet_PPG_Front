@@ -1,4 +1,7 @@
 <div class="auth-container">
+  <div>
+    <div toastContainer></div>
+  </div>
   <input type="checkbox" id="toggleForm" hidden *ngIf="!adminRole">
   <div class="container" id="container">
     <div [ngClass]="adminRole? 'form-container' : 'form-container sign-up-container'" >
@@ -107,7 +110,7 @@
           </small>
         </div>
 
-        <input type="text" formControlName="phoneNumber" placeholder="Phone Number">
+        <input type="text" formControlName="phoneNumber" placeholder="Phone Number" maxlength="8" (keypress)="allowOnlyDigits($event)">
         <div
           *ngIf="signUpFormSubmitted || signupForm.get('phoneNumber')?.invalid && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)"
           class="error-message">

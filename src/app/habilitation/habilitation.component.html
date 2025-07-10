@@ -1,71 +1,57 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des interfaces</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   
-</head>
-<body>
-    <div class="container">
-        <h1><i class="fas fa-shield-alt"></i> Gestion des permissions</h1>
-        
-        <table>
-            <thead>
-                <tr >
-                    <th>Nom de l'interface</th>
-                    <th >Consulter</th>
-                    <th>Ajouter</th>
-                    <th>Modifier</th>
-                    <th>Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><i class="fas fa-users"></i>Page d'acceuil</td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                </tr>
-                  <tr>
-                    <td><i class="fas fa-hotel"></i>Hôtel</td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                </tr>
-                <tr>
-                    <td><i class="fas fa-box-open"></i>Chambres</td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                </tr>
-                <tr>
-                    <td><i class="fas fa-shopping-cart"></i>Réservation</td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                </tr>
-                <tr>
-                    <td><i class="fas fa-file-invoice-dollar"></i>Paiement</td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                    <td class="action-checkbox"><input type="checkbox"></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <label for="saveTrigger" class="save-btn">
-            <i class=""></i> Enregistrer 
-        </label>
-        <input type="checkbox" id="saveTrigger" class="hidden-trigger">
-    </div>
+<form [formGroup]="permissionForm">
+  <div class="container">
+    <h1><i class="fas fa-shield-alt"></i> Gestion des permissions</h1>
     
-  
-</body>
-</html>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom de l'interface</th>
+          <th>Consulter</th>
+          <th>Ajouter</th>
+          <th>Modifier</th>
+          <th>Supprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><i class="fas fa-users"></i>Chat Admin</td>
+          <td><input type="checkbox" formControlName="accueil_view" /></td>
+          <td><input type="checkbox" formControlName="accueil_add" /></td>
+          <td><input type="checkbox" formControlName="accueil_edit" /></td>
+          <td><input type="checkbox" formControlName="accueil_delete" /></td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-hotel"></i>Hôtel</td>
+          <td><input type="checkbox" formControlName="hotel_view" /></td>
+          <td><input type="checkbox" formControlName="hotel_add" /></td>
+          <td><input type="checkbox" formControlName="hotel_edit" /></td>
+          <td><input type="checkbox" formControlName="hotel_delete" /></td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-box-open"></i>Chambres</td>
+          <td><input type="checkbox" formControlName="chambres_view" /></td>
+          <td><input type="checkbox" formControlName="chambres_add" /></td>
+          <td><input type="checkbox" formControlName="chambres_edit" /></td>
+          <td><input type="checkbox" formControlName="chambres_delete" /></td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-shopping-cart"></i>Réservation</td>
+          <td><input type="checkbox" formControlName="reservation_view" /></td>
+          <td><input type="checkbox" formControlName="reservation_add" /></td>
+          <td><input type="checkbox" formControlName="reservation_edit" /></td>
+          <td><input type="checkbox" formControlName="reservation_delete" /></td>
+        </tr>
+        <tr>
+          <td><i class="fas fa-file-invoice-dollar"></i>Paiement</td>
+          <td><input type="checkbox" formControlName="paiement_view" /></td>
+          <td><input type="checkbox" formControlName="paiement_add" /></td>
+          <td><input type="checkbox" formControlName="paiement_edit" /></td>
+          <td><input type="checkbox" formControlName="paiement_delete" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="save-btn" (click)="onSave()">💾 Enregistrer</button>
+    <button class="retour-btn" (click)="goBack()">🔙 Retour</button>
+  </div>
+</form>

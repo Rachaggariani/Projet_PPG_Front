@@ -654,3 +654,55 @@ border: none;
   border-radius: 2px;
 }
 
+/* Navbar menu */
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-left: 20px;
+  padding-left: 0;
+}
+
+.nav-menu li a {
+  color: #CA8E46;  /* couleur primaire */
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-menu li a:hover,
+.nav-menu li a.active {
+  background-color: #CA8E46;
+  color: white;
+  box-shadow: 0 2px 8px rgba(202, 142, 70, 0.6);
+}
+
+/* Bouton Déconnexion dans la navbar */
+.logout-btn {
+  background-color: #c06b68;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #c9302c;
+  box-shadow: 0 2px 8px rgba(201, 48, 44, 0.6);
+}
+
+/* Ajustement responsive, si besoin */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    gap: 15px;
+    margin-left: 0;
+  }
+}

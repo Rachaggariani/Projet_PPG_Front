@@ -8,7 +8,7 @@ import { Role } from '../role';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient) { }
 
@@ -16,11 +16,11 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/Allusers`);
   }
 
-  getUsersByRole(role: Role): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/users/${role}`);
-  }
-
   addUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.apiUrl}/users/`, user);
+  }
+
+    getUsersByRole(role: String): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/by-role/${role}`);
   }
 }

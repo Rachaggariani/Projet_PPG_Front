@@ -29,6 +29,7 @@ export class AuthService {
           (response: any) => {
             sessionStorage.setItem('jwtToken', response.accessToken);
             sessionStorage.setItem('username', response.username);
+            sessionStorage.setItem("userId", response.id.toString());
             sessionStorage.setItem('roles', JSON.stringify(response.roles));
             userData = response;
           }
@@ -66,7 +67,7 @@ export class AuthService {
   /**
    * Récupère le token JWT.
    */
-  // getToken(): string | null {
-  //   return sessionStorage.getItem('jwtToken');
-  // }
+  getToken(): string | null {
+    return sessionStorage.getItem('jwtToken');
+  }
 }

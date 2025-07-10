@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../models/LoginRequest';
 import { AuthService } from '../Services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth',
@@ -21,7 +22,7 @@ export class AuthComponent implements OnInit {
   signUpFormSubmitted: boolean = false;
   signInFormSubmitted: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private changeDetectorRef: ChangeDetectorRef, private toastr: ToastrService) { }
   ngOnInit() {
     // Formulaire de connexion
     this.signinForm = this.fb.group({
@@ -48,44 +49,84 @@ export class AuthComponent implements OnInit {
   }
 
   onSignIn() {
-    this.signInFormSubmitted =true;
-    if (!this.signinForm.invalid) {
-      const loginData: LoginRequest = this.signinForm.value;
-      this.authService.authenticate(loginData).subscribe({
-        next: () => {
-          this.router.navigate(['/home']);
-          this.invalidLogin = false;
-        },
-        error: (err: any) => {
-          this.invalidLogin = true
-          console.error('Login failed', err);
-          // tu peux afficher un message d'erreur ici
-        }
-      });
-    }
-  }
+  this.signInFormSubmitted = true;
 
-  onSignUp() {
-    this.signUpFormSubmitted = true;
-    if (!this.signupForm.invalid) {
-      //const signupData: SignupRequest = this.signupForm.value;
-      const formData = {
-        ...this.signupForm.value,
-        role: [this.signupForm.value.role] // Convertir en tableau
-      };
-      this.authService.register(formData).subscribe({
-        next: res => {
-          console.log('Inscription réussie');
-          this.invalidUser = false
-          this.toggleForm(); // pour revenir à l'écran login
-        },
-        error: err => {
-          this.invalidUser = true;
-          console.error('Erreur lors de l’inscription', err);
-        }
-      });
-    }
+  if (!this.signinForm.invalid) {
+    const loginData: LoginRequest = this.signinForm.value;
+
+    this.authService.authenticate(loginData).subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+        this.invalidLogin = false;
+      },
+      error: (err: any) => {
+        this.invalidLogin = true;
+        console.error('❌ Échec de la connexion :', err);
+
+        const errorMessage = err?.error?.message || 'Identifiants incorrects ou erreur serveur.';
+
+        this.toastr.error(
+          `<span class="toast-msg">${errorMessage}</span>`,
+          '',
+          {
+            timeOut: 26000,
+            progressBar: true,
+            closeButton: true,
+            enableHtml: true
+          }
+        );
+      }
+    });
   }
+}
+
+
+onSignUp() {
+  this.signUpFormSubmitted = true;
+
+  if (!this.signupForm.invalid) {
+    const formData = {
+      ...this.signupForm.value,
+      role: [this.signupForm.value.role] // Convertir en tableau
+    };
+
+    this.authService.register(formData).subscribe({
+      next: res => {
+        this.toastr.success(
+          '<span class="toast-msg">✅ Inscription réussie</span>',
+          '',
+          {
+            timeOut: 6000,
+            progressBar: true,
+            enableHtml: true
+          }
+        );
+        this.invalidUser = false;
+        this.toggleForm(); // pour revenir à l'écran login
+      },
+
+      error: err => {
+        this.invalidUser = true;
+
+        const errorMessage = err?.error?.message || '❌ Une erreur inconnue est survenue.';
+
+        this.toastr.error(
+          `<span class="toast-msg">${errorMessage}</span>`,
+          '',
+          {
+            timeOut: 27000,
+            progressBar: true,
+            closeButton: true,
+            enableHtml: true
+          }
+        );
+
+        console.error("Erreur lors de l'inscription :", err);
+      }
+    });
+  }
+}
+
 
   toggleForm() {
     this.isSignIn = !this.isSignIn;
@@ -97,4 +138,10 @@ export class AuthComponent implements OnInit {
     this.signupForm.get('role')?.setValue(e.target.value);
     //this.changeDetectorRef.detectChanges()
   }
+  allowOnlyDigits(event: KeyboardEvent) {
+  const inputChar = event.key;
+  if (!/^\d$/.test(inputChar)) {
+    event.preventDefault(); // empêche les lettres ou caractères spéciaux
+  }
+}
 }

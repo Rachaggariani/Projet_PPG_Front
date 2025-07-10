@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Hotel, HotelService } from '../Services/hotel.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PermissionService } from '../Services/permissions.service';
+import { AuthService } from '../Services/auth.service';
+import { UserService } from '../Services/user.service';
+import { Role } from '../role';
+import { User } from '../user';
 
 @Component({
   selector: 'app-home',
@@ -15,13 +20,19 @@ export class HomeComponent implements OnInit {
 
   loading = false;
     isLoading = false; 
-
+  loggedIn = false ;
   error: string | null = null;
+  canEditHotel: boolean | undefined;
+  canDeleteHotel: boolean | undefined;
+  admin: boolean =false;
 
   constructor(
     private hotelService: HotelService,
     private router: Router,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private permissionService : PermissionService,
+    private authService: AuthService,
+    private userService : UserService
   ) { 
    translate.addLangs(['en', 'fr', 'ar']);
   
@@ -46,8 +57,34 @@ toggleLanguageDropdown() {
   }
 
 
-  
+
   ngOnInit(): void {
+    if (this.authService.isUserLoggedIn()) {
+      this.loggedIn = true
+    }
+    const rolesString = sessionStorage.getItem("roles");
+    if (rolesString) {
+      const roles = JSON.parse(rolesString);
+      if (roles.includes("CLIENT")) {
+        this.userService.getUsersByRole(Role.CLIENT).subscribe((data: any) => {
+          data.map((user: User) => {
+            console.log(user);
+
+            this.permissionService.getPermissionsByUser(user.id).subscribe(data => {
+              const hotelPerm = data.find(p => p.interfaceName === 'Hôtel');
+              if (hotelPerm) {
+                this.canEditHotel = hotelPerm.canEdit;
+                console.log(this.canEditHotel);
+                this.canDeleteHotel = hotelPerm.canDelete;
+                console.log(this.canDeleteHotel);
+              }
+            });
+          })
+        });
+      }else{
+        this.admin =true;
+      }
+    }
     this.loadHotels();
   }
 
@@ -116,5 +153,9 @@ deleteHotel(id?: number) {
     });
   }
 }
+ logOut(){
+    this.authService.logOut();
+    this.router.navigate(['auth']);
+  }
 
 }

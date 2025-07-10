@@ -338,15 +338,36 @@
     .save-btn {
         display: block;
         text-align: center;
-        background-color: #bfa566;
+        background-color: #72bf66;
         color: #000;
         padding: 12px 0;
         border-radius: 30px;
         font-weight: bold;
         cursor: pointer;
         text-decoration: none;
+        width: 100%;
     }
 
     .hidden-trigger {
         display: none;
+    }
+
+    .retour-btn {
+        margin-top: 15px;
+        display: block;
+        text-align: center;
+        padding: 12px 0;
+        border-radius: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        width: 100%;
+        background-color: #c06b68; /* Exemple : rouge doux */
+        color: white;
+        border: 2px solid #c06b68;
+    }
+
+    .retour-btn:hover {
+        background-color: #c9302c;
+          border-color: #c9302c;
     }
