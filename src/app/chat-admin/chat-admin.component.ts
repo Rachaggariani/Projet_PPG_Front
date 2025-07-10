@@ -62,29 +62,49 @@ export class ChatAdminComponent implements OnInit, OnDestroy {
     );
   }
 
-  async loadMessages(): Promise<void> {
-    if (!this.admin || !this.selectedClient) return;
+  // async loadMessages(): Promise<void> {
+  //   if (!this.admin || !this.selectedClient) return;
 
-    try {
-      // Utilisation de getMessages au lieu de getAllMessages
-      const messages = await this.chatService.getMessages(this.admin.id);
-      if (!messages) {
-        console.error('Aucun message trouvé');
-        return;
-      }
+  //   try {
+  //     // Utilisation de getMessages au lieu de getAllMessages
+  //     const messages = await this.chatService.getMessages(this.admin.id);
+  //     if (!messages) {
+  //       console.error('Aucun message trouvé');
+  //       return;
+  //     }
 
-      this.messages = messages.filter(
-        (m: Message) =>
-          (m.sender.id === this.admin!.id && m.receiver.id === this.selectedClient!.id) ||
-          (m.sender.id === this.selectedClient!.id && m.receiver.id === this.admin!.id)
-      ).sort((a: Message, b: Message) => 
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-      );
-    } catch (error) {
-      console.error('Erreur lors du chargement des messages', error);
+  //     this.messages = messages.filter(
+  //       (m: Message) =>
+  //         (m.sender.id === this.admin!.id && m.receiver.id === this.selectedClient!.id) ||
+  //         (m.sender.id === this.selectedClient!.id && m.receiver.id === this.admin!.id)
+  //     ).sort((a: Message, b: Message) => 
+  //       new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  //     );
+  //   } catch (error) {
+  //     console.error('Erreur lors du chargement des messages', error);
+  //   }
+  // }
+async loadMessages(): Promise<void> {
+  if (!this.admin || !this.selectedClient) return;
+
+  try {
+    const messages = await this.chatService.getMessages(this.admin.id);
+    if (!messages) {
+      console.error('Aucun message trouvé');
+      return;
     }
-  }
 
+    // Filtrer et trier simplement par date
+    this.messages = messages
+      .filter((m: Message) =>
+        (m.sender.id === this.admin!.id && m.receiver.id === this.selectedClient!.id) ||
+        (m.sender.id === this.selectedClient!.id && m.receiver.id === this.admin!.id)
+      )
+
+  } catch (error) {
+    console.error('Erreur lors du chargement des messages', error);
+  }
+}
   async sendMessage(): Promise<void> {
     if (!this.content.trim() || !this.admin || !this.selectedClient) return;
 

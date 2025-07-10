@@ -157,12 +157,12 @@
   </div>
 
   <div class="chat-body">
-  <select [(ngModel)]="clientName" (change)="onClientSelect()">
+  <!-- <select [(ngModel)]="clientName" (change)="onClientSelect()">
   <option value="">Sélectionnez un client</option>
   <option *ngFor="let client of clients" [value]="client.username">
     {{ client.username }}
   </option>
-</select>
+</select> -->
     <div class="messages" *ngIf="initialized">
       <div
         *ngFor="let msg of messages"

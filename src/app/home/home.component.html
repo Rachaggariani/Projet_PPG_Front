@@ -19,6 +19,7 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     
       <img src="../assets/images/logo.png" alt="CARTHA.GO" class="hero-logo"> 
       <ul class="nav-menu">
+        <li *ngIf="admin"><a routerLink="/chat_Admin" routerLinkActive="active">Discussions</a></li>
         <li *ngIf="admin"><a routerLink="/AjoutHotel" routerLinkActive="active">Ajouter Hotel</a></li>
         <li *ngIf="admin"><a routerLink="/habilitation" routerLinkActive="active">Gestion des permissions</a></li>
         <li class="">
@@ -155,6 +156,6 @@ href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.m
     </div>
   </section>
 
-  <app-chat></app-chat>
+  <app-chat *ngIf="!admin"></app-chat>
 </body>
 </html>

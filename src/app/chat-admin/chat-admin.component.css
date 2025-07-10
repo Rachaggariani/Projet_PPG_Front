@@ -138,18 +138,18 @@
       color: var(--text-muted);
     }
 
-    .messages {
+    /* .messages {
       flex: 1;
       padding: 20px;
       overflow-y: auto;
       background: #fefefe;
-    }
+    } */
 
-    .message {
+    /* .message {
       margin-bottom: 16px;
       display: flex;
       flex-direction: column;
-    }
+    } */
 
     .message.you {
       align-items: flex-end;
@@ -318,3 +318,76 @@
       background: rgba(0, 0, 0, 0.2);
       border-radius: 3px;
     }
+
+.message {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-bubble {
+  /* Common styles for both message types */
+  padding: 8px 12px;
+  border-radius: 12px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  
+  /* Remove fixed min/max width from here */
+  width: fit-content; /* Let content determine width */
+}
+
+.client-message {
+  align-self: flex-start;
+  background: #f1f1f1;
+  margin-right: auto;
+  text-align: left;
+}
+
+.admin-message {
+  align-self: flex-end;
+  background: #007bff;
+  color: white;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* Remove these conflicting rules */
+/* .client-message, .admin-message {
+  max-width: 80%;
+  min-width: 20%;
+} */
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8em;
+  margin-bottom: 4px;
+}
+
+.client-message .sender {
+  font-weight: bold;
+  color: #333;
+}
+
+.admin-message .sender {
+  font-weight: bold;
+  color: #fff;
+}
+
+.time {
+  opacity: 0.7;
+  margin-left: 8px;
+}
+
+.message-content {
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.client-message .message-content {
+  text-align: left;
+}
+
+.admin-message .message-content {
+  text-align: right;
+}
