@@ -1,0 +1,130 @@
+<!-- hotel-edit.component.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+<div class="form-container">
+  <div class="titre"> <h2>Modifier l'hôtel</h2></div>
+  <form [formGroup]="hotelForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="nomHotel">Nom de l'hôtel :</label>
+      <input type="text" id="nomHotel" formControlName="nomHotel">
+    </div>
+
+    <div class="form-group">
+      <label for="adresseHotel">Adresse de l'hôtel :</label>
+      <input type="text" id="adresseHotel" formControlName="adresseHotel">
+    </div>
+     <div class="form-group">
+      <label for="serviceDescription">Description hôtel :</label>
+      <input type="text" id="serviceDescription" formControlName="serviceDescription">
+    </div>
+<div class="form-group">
+      <label for="tel">Numéro de téléphone :</label>
+<input type="text" inputmode="numeric" pattern="[0-9]*"  id="tel" formControlName="tel" (change)="formatAsNumber()">
+</div>
+
+    <div class="form-group">
+      <label for="image">Image :</label>
+      <input type="file" id="image" (change)="onFileSelected($event)">
+      <small class="text-muted">Choisir un fichier | Aucun fichier choisi</small>
+    </div>
+
+   <div class="form-group">
+      <label>rating :</label>
+      <div class="rating-stars">
+        <input type="radio" id="star5" name="rating" value="5" formControlName="rating">
+        <label for="star5">★</label>
+        
+        <input type="radio" id="star4" name="rating" value="4" formControlName="rating">
+        <label for="star4">★</label>
+        
+        <input type="radio" id="star3" name="rating" value="3" formControlName="rating">
+        <label for="star3">★</label>
+        
+        <input type="radio" id="star2" name="rating" value="2" formControlName="rating">
+        <label for="star2">★</label>
+        
+        <input type="radio" id="star1" name="rating" value="1" formControlName="rating">
+        <label for="star1">★</label>
+      </div>
+
+   <div class="form-group">
+  <label>Disponibilté des chambres :</label>
+  
+  <div class="chambre-types-container">
+    <!-- Simple -->
+    <div class="chambre-type-section">
+      <h6 style="color: #b69622;">Chambres Simples</h6>
+      <div class="chambres-container">
+        <div *ngFor="let chambre of groupedChambres['simple']" 
+             [formGroup]="chambre"
+             class="chambre-option"
+             [class.disponible]="chambre.get('disponible')?.value"
+             (click)="toggleDisponibilite(chambre)">
+          <span class="chambre-numero">{{ chambre.get('numero')?.value }}</span>
+          <span class="chambre-etat">
+            {{ chambre.get('disponible')?.value ? 'Exist' : 'Complet' }}
+          </span>
+        </div>
+        <div *ngIf="groupedChambres['simple'].length === 0" class="no-chambres">
+          Aucune
+        </div>
+      </div>
+    </div>
+
+    <!-- Double -->
+    <div class="chambre-type-section">
+      <h6 style="color: #b69622;">Chambres Doubles</h6>
+      <div class="chambres-container">
+        <div *ngFor="let chambre of groupedChambres['double']" 
+             [formGroup]="chambre"
+             class="chambre-option"
+             [class.disponible]="chambre.get('disponible')?.value"
+             (click)="toggleDisponibilite(chambre)">
+          <span class="chambre-numero">{{ chambre.get('numero')?.value }}</span>
+          <span class="chambre-etat">
+            {{ chambre.get('disponible')?.value ? 'Exist' : 'Complet' }}
+          </span>
+        </div>
+        <div *ngIf="groupedChambres['double'].length === 0" class="no-chambres">
+          Aucune
+        </div>
+      </div>
+    </div>
+
+    <!-- Suite -->
+    <div class="chambre-type-section">
+      <h6 style="color: #b69622;">Suites</h6>
+      <div class="chambres-container">
+        <div *ngFor="let chambre of groupedChambres['suite']" 
+             [formGroup]="chambre"
+             class="chambre-option"
+             [class.disponible]="chambre.get('disponible')?.value"
+             (click)="toggleDisponibilite(chambre)">
+          <span class="chambre-numero">{{ chambre.get('numero')?.value }}</span>
+          <span class="chambre-etat">
+            {{ chambre.get('disponible')?.value ? 'Exist' : 'Complet' }}
+          </span>
+        </div>
+        <div *ngIf="groupedChambres['suite'].length === 0" class="no-chambres">
+          Aucune
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  <div style="display: flex; gap: 10px;">
+  <button type="submit">Enregistrer</button>
+  <button type="submit" (click)="goBack()">Retour</button>
+</div>
+  </form>
+</div>
+</body>
+</html>

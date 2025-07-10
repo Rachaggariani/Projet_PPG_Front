@@ -1,0 +1,171 @@
+<div class="auth-container">
+  <input type="checkbox" id="toggleForm" hidden *ngIf="!adminRole">
+  <div class="container" id="container">
+    <div [ngClass]="adminRole? 'form-container' : 'form-container sign-up-container'" >
+      <form [formGroup]="signinForm" (ngSubmit)="onSignIn()">
+        <h1>Sign in</h1>
+        <div class="social-container">
+          <a href="#" class="social-img">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+          </a>
+          <a href="#" class="social-img">
+            <img src="../../assets/images/logoGg.png" alt="Google">
+          </a>
+          <a href="#" class="social-img">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+          </a>
+        </div>
+                <!-- DROPDOWN ROLE -->
+        <div class="radio-role-group-horizontal">
+          <label class="radio-title">Select Role</label>
+
+          <div class="radio-role-options">
+            <label class="custom-radio">
+              <input type="radio" name="role" value="client" required (click)="CheckboxChange($event)" formControlName="role" >
+              <span class="radio-mark"></span>
+              Client
+            </label>
+
+            <label class="custom-radio">
+              <input type="radio" name="role" value="admin" required (click)="CheckboxChange($event)" formControlName="role">
+              <span class="radio-mark"></span>
+              Admin
+            </label>
+          </div>
+        </div>
+        <input type="text" formControlName="username" placeholder="Username" required>
+        <div
+          *ngIf="signInFormSubmitted || signinForm.get('username')?.invalid && (signinForm.get('username')?.dirty || signinForm.get('username')?.touched)"
+          class="error-message">
+          <small *ngIf="signinForm.get('username')?.errors?.['required']">Username is required</small>
+        </div>
+        
+        <input type="password" formControlName="password" placeholder="Password" required>
+        <div
+          *ngIf="signInFormSubmitted || signinForm.get('password')?.invalid && (signinForm.get('password')?.dirty || signinForm.get('password')?.touched)"
+          class="error-message">
+          <small *ngIf="signinForm.get('password')?.errors?.['required']">Password is required</small>
+        </div>
+        <button type="submit" style="margin-top: 30px;">Sign In</button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container" *ngIf="!adminRole">
+      <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+        <h1>Create Account</h1>
+        <div class="social-container">
+          <a href="#" class="social-img">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+          </a>
+          <a href="#" class="social-img">
+            <img src="../../assets/images/logoGg.png" alt="Google">
+          </a>
+          <a href="#" class="social-img">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+          </a>
+        </div>
+        <!-- DROPDOWN ROLE -->
+        <div class="radio-role-group-horizontal">
+          <label class="radio-title">Select Role</label>
+
+          <div class="radio-role-options">
+            <label class="custom-radio">
+              <input type="radio" name="role" value="client" required (click)="CheckboxChange($event)" formControlName="role">
+              <span class="radio-mark"></span>
+              Client
+            </label>
+
+            <label class="custom-radio">
+              <input type="radio" name="role" value="admin" required (click)="CheckboxChange($event)" formControlName="role">
+              <span class="radio-mark"></span>
+              Admin
+            </label>
+          </div>
+        </div>
+
+        <input type="text" formControlName="username" placeholder="Username">
+        <div
+          *ngIf="signUpFormSubmitted || signupForm.get('username')?.invalid && (signupForm.get('username')?.dirty || signupForm.get('username')?.touched)"
+          class="error-message">
+          <small *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</small>
+        </div>
+        
+        <input type="email" formControlName="email" placeholder="Email">
+        <div *ngIf=" signUpFormSubmitted || signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
+          class="error-message">
+          <small *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</small>
+          <small *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</small>
+        </div>
+        
+        <input type="password" formControlName="password" placeholder="Password">
+        <div
+          *ngIf="signUpFormSubmitted || signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)"
+          class="error-message">
+          <small *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</small>
+          <small *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</small>
+          <small *ngIf="signupForm.get('password')?.errors?.['pattern']">
+            Password must contain at least one uppercase, one lowercase, one number and one special character
+          </small>
+        </div>
+
+        <input type="text" formControlName="phoneNumber" placeholder="Phone Number">
+        <div
+          *ngIf="signUpFormSubmitted || signupForm.get('phoneNumber')?.invalid && (signupForm.get('phoneNumber')?.dirty || signupForm.get('phoneNumber')?.touched)"
+          class="error-message">
+          <small *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required</small>
+          <small *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Phone number must be exactly 8 digits</small>
+        </div>
+
+        <button type="submit" style="margin-top: 30px;">Sign Up</button>
+      </form>
+    </div>
+    <!-- <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left" *ngIf="!adminRole">
+          <h1>Welcome Back!</h1>
+          <p style="margin-top: 40px;">To keep connected with us please login with your personal info</p>
+          <label for="toggleForm" class="ghost" id="signUp" style="margin-top: 30px;">Sign Up<span
+              class="arrow">←</span></label>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p style="margin-top: 40px;">Enter your personal details and start journey with us</p>
+          <label for="toggleForm" class="ghost" id="signIn" style="margin-top: 30px;" *ngIf="!adminRole">Sign In <span
+              class="arrow">→</span></label>
+        </div>
+      </div>
+    </div> -->
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome Back!</h1>
+          <p style="margin-top: 40px;">To keep connected with us please login with your personal info</p>
+          <label for="toggleForm" class="ghost" id="signUp" style="margin-top: 30px;">Sign Up<span
+              class="arrow">←</span></label>
+        </div>
+        <div class="overlay-panel overlay-right" *ngIf="!adminRole">
+          <h1>Hello, Friend!</h1>
+          <p style="margin-top: 40px;">Enter your personal details and start journey with us</p>
+          <label for="toggleForm" class="ghost" id="signIn" style="margin-top: 30px;">Sign In <span
+              class="arrow">→</span></label>
+        </div>
+        <div class="overlay-panel overlay-right" *ngIf="adminRole">
+        <div>
+          <h1>Admin Portal</h1>
+          <p style="margin-top: 40px;">Welcome to the administration panel</p>
+        </div>
+      </div>
+      </div>
+    </div>
+    
+    <!-- Ajoutez un overlay-container séparé pour le mode admin -->
+    <!-- <div class="overlay-container admin-overlay" *ngIf="adminRole">
+      <div class="overlay">
+        <div class="overlay-panel overlay-full">
+          <h1>Admin Portal</h1>
+          <p style="margin-top: 40px;">Welcome to the administration panel</p>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>

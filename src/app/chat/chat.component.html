@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boîte de Chat</title>
+  <style>
+  
+
+    /* Styles de la boîte de chat */
+    #chat-box {
+      width: 350px;
+      max-width: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      height: 400px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #toggle-chat:checked + .chat-toggle {
+      display: none;
+    }
+
+    #toggle-chat:checked + .chat-toggle + #chat-box {
+      transform: translateY(0);
+    }
+
+    .chat-header {
+      background-color: #a97337;
+      color: #fff;
+      padding: 10px;
+      font-size: 18px;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+      position: relative;
+    }
+
+    .close-chat {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    /* Chat body */
+    .chat-body {
+      flex-grow: 1;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-y: auto;
+      height: calc(100% - 70px); /* Height of header */
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+    }
+
+    .messages {
+      margin-top: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .message {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 10px;
+      word-wrap: break-word;
+    }
+
+    .message img {
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .me {
+      background-color: #d1e7fd;
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .other {
+      background-color: #f1f1f1;
+    }
+
+    /* Heure de message */
+    .timestamp {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    /* Formulaire de message */
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      font-size: 14px;
+      resize: none;
+      height: 60px;
+    }
+
+  
+
+    .chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 30px;
+      background-color: #a97337;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+
+
+  </style>
+</head>
+<body>
+
+ <!-- chat.component.html -->
+<!-- Boîte de Chat HTML avec affichage du timestamp -->
+
+<!-- Checkbox pour ouvrir/fermer la boîte de chat -->
+<input type="checkbox" id="toggle-chat" hidden />
+<label for="toggle-chat" class="chat-toggle">💬</label>
+
+<!-- Boîte de chat -->
+<div id="chat-box">
+  <div class="chat-header">
+    Boîte de discussion
+    <label for="toggle-chat" class="close-chat">×</label>
+  </div>
+
+  <div class="chat-body">
+    <label>Mon ID (Client) :</label>
+    <input type="number" [(ngModel)]="clientId" (change)="onClientIdChange()" placeholder="Entrez votre ID" />
+
+    <div class="messages" *ngIf="initialized">
+      <div
+        *ngFor="let msg of messages"
+        [class.me]="msg.sender.id === client.id"
+        [class.other]="msg.sender.id !== client.id"
+        class="message"
+      >
+        <div>
+          <strong>{{ msg.sender.username }}:</strong> {{ msg.content }}
+          <div class="timestamp">{{ formatTime(msg.timestamp) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <textarea [(ngModel)]="content" placeholder="Votre message..."></textarea><br />
+    <button (click)="sendMessage()">Envoyer</button>
+  </div>
+</div>
+
+
+</body>
+</html>

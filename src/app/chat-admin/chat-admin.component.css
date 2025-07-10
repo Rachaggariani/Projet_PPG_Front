@@ -1,0 +1,320 @@
+  :root {
+      --primary-color: #2196F3;
+      --sidebar-bg: #f5f5f5;
+      --message-bg: #f1f1f1;
+      --your-message-bg: #E3F2FD;
+      --border-color: #e0e0e0;
+      --text-muted: #757575;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      height: 100vh;
+      background: #fff;
+      display: flex;
+    }
+
+    .app-container {
+      display: flex;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      width: 300px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .search-bar {
+      padding: 15px;
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .contact-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .contact {
+      padding: 12px 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .contact:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .contact.active {
+      background-color: #E3F2FD;
+    }
+
+    .contact img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .contact-name {
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .status {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .status.online {
+      color: #4CAF50;
+    }
+
+    /* Chat area styles */
+    .chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fafafa;
+    }
+
+    .chat-header {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      background: white;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .chat-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 12px;
+      object-fit: cover;
+    }
+
+    .chat-user-info {
+      flex: 1;
+    }
+
+    .chat-user-name {
+      font-weight: 500;
+    }
+
+    .chat-user-status {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fefefe;
+    }
+
+    .message {
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message.you {
+      align-items: flex-end;
+    }
+
+    .message-content {
+      display: flex;
+      max-width: 70%;
+    }
+
+    .message:not(.you) .message-content {
+      align-items: flex-start;
+    }
+
+    .message:not(.you) img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+      align-self: flex-end;
+      margin-bottom: 5px;
+    }
+
+    .message-text-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message.you .message-text-container {
+      align-items: flex-end;
+    }
+
+    .message .sender {
+      font-weight: 500;
+      margin-bottom: 4px;
+      font-size: 14px;
+      color: #424242;
+    }
+
+    .message .text {
+      padding: 12px 16px;
+      background: var(--message-bg);
+      border-radius: 18px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+
+    .message.you .text {
+      background: var(--your-message-bg);
+      border-top-right-radius: 4px;
+    }
+
+    .message:not(.you) .text {
+      border-top-left-radius: 4px;
+    }
+
+    .message .time {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .input-area {
+      padding: 15px;
+      background: white;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 12px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      font-size: 15px;
+      outline: none;
+      margin-right: 10px;
+    }
+
+    .input-area input:focus {
+      border-color: var(--primary-color);
+    }
+
+    .send-button {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+ .send-button {
+          background: #dcd48d;
+
+    }
+    .send-button:hover {
+      background: #e09407;
+    }
+
+    .send-icon {
+      width: 24px;
+      height: 24px;
+      
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 50vh;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .chat {
+        height: 50vh;
+      }
+
+      .message-content {
+        max-width: 85%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .message-content {
+        max-width: 90%;
+      }
+
+      .message .text {
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+
+      .input-area input {
+        padding: 10px 15px;
+      }
+
+      .send-button {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <title>Chambres</title>
+  <style>
+    .card.disabled {
+      opacity: 0.6;
+      filter: grayscale(80%);
+    }
+    .btn:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-screen">
+      <div class="loading-brand">
+        <h1>{{'Loading'| translate}}</h1>
+        <h2>{{'réservation'| translate}}</h2>
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="!loading" class="background">
+    <!-- Titre principal -->
+    <div class="title-section">
+      <div class="select">{{'Sélectionner' | translate}}</div>
+      <div class="rooms">{{'Chambre'|translate}}</div>
+    </div>
+
+    <div class="cards">
+      <!-- Cards dynamiques -->
+      <div *ngFor="let roomType of roomTypes" class="card" [class.disabled]="!roomType.available">
+        <div class="card-container">
+<img 
+    [src]="getRoomImage(roomType.key)" 
+    [alt]="'Chambre ' + roomType.name"
+    class="room-image"
+    (error)="handleImageError($event, roomType.key)"
+  />
+            <div class="tag">Type : {{roomType.name}}</div>
+          <div *ngIf="!roomType.available" class="complet-badge"></div>
+        </div>
+        <div class="card-body">
+        <div class="info">👤 {{getCapacity(roomType.key)}} {{'Personne(s)'|translate}} &nbsp;&nbsp;</div>
+          
+          <button 
+            class="btn" 
+            [disabled]="!roomType.available"
+          (click)="navigateToChambres(roomType.key)">
+            {{ roomType.available ? ('Réserver maintenant' | translate) : ('COMPLET' | translate) }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <div class="exit-bottom">
+  <a href="/home" class="exit-icon" title="Quitter">
+    <i class="bi bi-box-arrow-left"></i>
+    
+  </a>
+</div>
+</body>
+</html>

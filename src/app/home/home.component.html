@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" >
+
+  <title>Seaside Hotel</title>
+</head>
+<body>
+<div >
+  <div toastContainer></div>
+</div>
+<section class="hero">
+  <!-- Navbar intégrée dans le hero -->
+   
+    <nav class="hero-nav">
+      
+      <img src="../assets/images/logo.png" alt="CARTHA.GO" class="hero-logo">
+<div class="nav-buttons">
+  <div class="language-switcher">
+    <button class="language-button" (click)="toggleLanguageDropdown()">
+      <div class="language-option">
+        <div class="language-flag" [ngClass]="{
+              'french-flag': currentLanguage === 'fr',
+              'tunisian-flag': currentLanguage === 'ar',
+              'english-flag': currentLanguage === 'en'
+            }"></div>
+        <span>
+          {{ currentLanguage === 'fr' ? ('Français' | translate) : 
+             currentLanguage === 'ar' ? ('Tunis' | translate) : 
+             ('English' | translate) }}
+        </span>
+      </div>
+    </button>
+    <div class="language-dropdown" [class.show]="showLanguageDropdown">
+     
+      <a href="#" (click)="changeLanguage('fr'); $event.preventDefault()">
+        <div class="language-option">
+          <div class="language-flag french-flag"></div>
+          <span>{{ 'Français' | translate }}</span>
+        </div>
+      </a>
+       <a href="#" (click)="changeLanguage('ar'); $event.preventDefault()">
+        <div class="language-option">
+          <div class="language-flag tunisian-flag"></div>
+          <span>{{ 'Tunis' | translate }}</span>
+        </div>
+      </a>
+      <a href="#" (click)="changeLanguage('en'); $event.preventDefault()">
+        <div class="language-option">
+          <div class="language-flag english-flag"></div>
+          <span>{{ 'English' | translate }}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <button class="hero-button" routerLink="/auth">{{ 'Connexion' | translate }}</button>
+</div>
+
+    </nav>
+    
+   
+    <!-- Contenu hero -->
+    <div class="overlay">
+      <h1 class="fade-up">{{ 'Bienvenue au Site Web CARTHA.GO !' | translate }}</h1>
+    </div>
+   
+  </section>
+  <!-- Loading Overlay -->
+<div *ngIf="loading" class="loading-overlay">
+<div class="loading-screen">
+  <div class="loading-brand">
+    <h1>{{ 'Loading' | translate }}</h1>
+    <h2>{{ 'Chambre' | translate }}</h2>
+    <div class="loading-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- Section cards -->
+<section class="cards-container">
+  <div *ngFor="let hotel of hotels" >
+    <div class="card" (click)="navigateToChambres(hotel.id)">
+      <img [src]="getFirstImage(hotel.images)" alt="{{ hotel.nomHotel }}" class="card-img" />
+      <div class="card-overlay">
+        <div class="hotel-details">
+          <div class="rating">{{ getStars(hotel.rating) }}</div>
+          <h3 class="hotel-name">{{ hotel.nomHotel }}</h3>
+             <h6 class="hotel-description">{{ hotel.serviceDescription}}</h6>
+          <h6 class="hotel-address">{{ hotel.adresseHotel }}</h6>
+          <h5 class="hotel-phone">+216 {{ hotel.tel }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carte secondaire style (optionnel) -->
+   <div class="card-label-box" style="display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    <span class="new-badge">{{ 'NEW' | translate }}</span>
+    <span class="demo-title">{{ hotel.nomHotel }}</span>
+  </div>
+  <div class="btn-group">
+    <button class="icon-btn edit-btn">
+      <i class="bi bi-pencil-square"[routerLink]="['/EditHotel/', hotel.id]"></i>
+    </button>
+    <button class="icon-btn delete-btn"  (click)="deleteHotel(hotel.id)">
+      <i class="bi bi-trash3"></i>
+    </button>
+  </div>
+</div>
+  </div>
+</section>
+
+  <section id="section-banner" class="text-light">
+    <div class="container">
+      <div class="col-md-8 col-md-offset-2 text-center">
+        <p class="wow fadeInUp">&copy; Copy Right - 2025</p>
+
+        <ul class="contact-info list-inline wow fadeInUp" style="margin-top: 15px;">
+          <li class="list-inline-item">
+            <a href="tel:+1234567890">
+          <i class="bi bi-telephone-fill" style="width: 20px;"></i> +216 20933039
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="mailto:contact@example.com">
+             <i class="bi bi-envelope" style="width: 30px; margin-right: 8px;"></i>GtiINGTA2D@gmail.com
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="https://facebook.com/votrepage" target="_blank">
+             <i class="bi bi-facebook" style="width: 15px; margin-right: 8px;"></i>Facebook
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a href="https://instagram.com/votreprofil" target="_blank">
+            <i class="bi bi-instagram" style="width: 15px; margin-right: 4px;"></i> Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <app-chat></app-chat>
+</body>
+</html>

@@ -1,0 +1,73 @@
+.language-switcher {
+  display: inline-block;
+  position: relative;
+}
+
+.language-button {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.language-button:hover {
+  background-color: #f5f5f5;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.language-flag {
+  width: 20px;
+  height: 15px;
+  margin-right: 8px;
+  background-size: cover;
+}
+
+.tunisian-flag {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2"><circle cx="1.5" cy="1" r="0.5" fill="red"/><path fill="red" d="M1.5 0.25L1.75 0.75H1.25z"/><path fill="red" d="M1.5 1.75L1.25 1.25H1.75z"/><path fill="red" d="M0.75 1L1.25 0.75V1.25z"/><path fill="red" d="M2.25 1L1.75 0.75V1.25z"/><path fill="%23E70013" d="M0 0h3v2H0z"/></svg>');
+}
+
+.french-flag {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2"><path fill="%230055A4" d="M0 0h1v2H0z"/><path fill="white" d="M1 0h1v2H1z"/><path fill="%23EF4135" d="M2 0h1v2H2z"/></svg>');
+}
+
+.english-flag {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30"><clipPath id="a"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="b"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(%23a)"><path fill="%2300246B" d="M0 0v30h60V0z"/><path fill="white" d="M0 0l60 30m0-30L0 30" stroke-width="6"/><path fill="%23CF142B" d="M0 0l60 30m0-30L0 30" clip-path="url(%23b)" stroke-width="4"/><path fill="white" d="M30 0v30M0 15h60" stroke-width="10"/><path fill="%23CF142B" d="M30 0v30M0 15h60" stroke-width="6"/></g></svg>');
+}
+
+.language-dropdown {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.language-switcher:hover .language-dropdown {
+  display: block;
+}
+
+.language-dropdown a {
+  color: black;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.language-dropdown a:hover {
+  background-color: #f1f1f1;
+}
+
+.current-language {
+  font-weight: bold;
+}

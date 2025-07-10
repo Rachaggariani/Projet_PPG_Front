@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seaside Hotel - Room</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .background {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .room-card {
+      background: rgba(116, 113, 113, 0.2);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 1100px;
+      min-height: 680px;
+      display: flex;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Animation de swipe */
+    .room-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(30,60,114,0.8) 0%, rgba(42,82,152,0) 100%);
+      z-index: 1;
+      animation: swipeAnimation 1.5s ease-out forwards;
+    }
+    
+    @keyframes swipeAnimation {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+    
+    .room-images {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    
+    .image-slider {
+      display: flex;
+      height: 100%;
+    }
+    
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      animation: slideShow 12s infinite;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .slide:nth-child(1) {
+      background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      animation-delay: 0s;
+    }
+    
+    .slide:nth-child(2) {
+      background-image: url('https://images.unsplash.com/photo-1566669437685-5f63c8ede5cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      animation-delay: 4s;
+    }
+    
+    .slide:nth-child(3) {
+      background-image: url('https://images.unsplash.com/photo-1564078516393-cf04bd966897?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      animation-delay: 8s;
+    }
+    
+    @keyframes slideShow {
+      0% {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+      10% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      30% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      40% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+      100% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+    }
+    
+    .slider-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 2;
+    }
+    
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      transition: background 0.3s;
+      animation: dotPulse 4s infinite;
+    }
+    
+    .slider-dot:nth-child(1) {
+      animation-delay: 0s;
+    }
+    
+    .slider-dot:nth-child(2) {
+      animation-delay: 4s;
+    }
+    
+    .slider-dot:nth-child(3) {
+      animation-delay: 8s;
+    }
+    
+    @keyframes dotPulse {
+      0%, 100% {
+        background: rgba(255, 255, 255, 0.5);
+      }
+      10%, 30% {
+        background: white;
+      }
+    }
+    
+    .room-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .room-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    
+    .meta-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+    
+    .price {
+      font-weight: bold;
+      color: #ffd700;
+      margin-left: auto;
+    }
+    
+    .btn-book {
+      background: #d69f06;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin-left: auto;
+    }
+    
+    .btn-book:hover {
+      background: #ebc35f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(163, 83, 4, 0.4);
+    }
+    
+    .room-description {
+      flex: 1;
+    }
+    
+    h3 {
+      color: #cdc29c;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 10px; /* Espace entre le texte et la ligne */
+    }
+    
+    h3::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 34%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.638);
+    }
+    
+    .overview p {
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    
+    .facility-list {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    
+    .facility-list li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkmark {
+      color: #7e5104;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="room-card">
+      <div class="room-images">
+        <div class="image-slider">
+          <div class="slide"></div>
+          <div class="slide"></div>
+          <div class="slide"></div>
+        </div>
+        <div class="slider-controls">
+          <div class="slider-dot"></div>
+          <div class="slider-dot"></div>
+          <div class="slider-dot"></div>
+        </div>
+      </div>
+
+      <div class="room-info">
+        <div class="room-meta">
+          <div class="meta-item">👤 4 Guests</div>
+          <div class="meta-item price">$79 / Night</div>
+          <button class="btn-book">{{'Réserver'| translate}}</button>
+        </div>
+
+        <div class="room-description">
+          <div class="overview">
+            <h3>{{'Description chambre'| translate}}  :</h3>
+            <p>
+              Our Kinja size bed room offers a luxurious experience with ample space for up to 4 guests. The room features a high-comfort mattress and premium bedding to ensure a restful night's sleep. Enjoy stunning views and modern amenities in this beautifully designed space.
+            </p>
+          </div>
+          
+          <div class="facilities">
+            <h3>{{'Options chambre' | translate}} : </h3>
+            <ul class="facility-list">
+              <li><span class="checkmark">▫</span>Vue sur mer </li>
+              <li><span class="checkmark">▫</span>Complet</li>
+              <li><span class="checkmark">▫</span> Hot & cold bathing & jacozi</li>
+              <li><span class="checkmark">▫</span> High comfortable mattress bed</li>
+              <li><span class="checkmark">▫</span> High quality bed sheets</li>
+              <li><span class="checkmark">▫</span> Free WiFi internet connection</li>
+              <li><span class="checkmark">▫</span> Connecting room by request</li>
+               <li><span class="checkmark">▫</span> Connecting room by request</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

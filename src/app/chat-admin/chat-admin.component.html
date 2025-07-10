@@ -1,0 +1,200 @@
+<!--<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat UI Responsive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="search-bar">
+        <input type="text" placeholder="Rechercher...">
+      </div>
+      <div class="contact-list">
+        <div class="contact active">
+          <img src="https://i.pravatar.cc/150?img=1" alt="Vanessa Tucker">
+          <div class="contact-info">
+            <div class="contact-name">Vanessa Tucker</div>
+            <div class="status online">En ligne</div>
+          </div>
+        </div>
+        <div class="contact">
+          <img src="https://i.pravatar.cc/150?img=2" alt="Sharon Lessman">
+          <div class="contact-info">
+            <div class="contact-name">Sharon Lessman</div>
+            <div class="status">Hors ligne</div>
+          </div>
+        </div>
+        <div class="contact">
+          <img src="https://i.pravatar.cc/150?img=3" alt="John Doe">
+          <div class="contact-info">
+            <div class="contact-name">John Doe</div>
+            <div class="status online">En ligne</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chat">
+      <div class="chat-header">
+        <img src="https://i.pravatar.cc/150?img=1" alt="Vanessa Tucker">
+        <div class="chat-user-info">
+          <div class="chat-user-name">Vanessa Tucker</div>
+          <div class="chat-user-status online">En ligne</div>
+        </div>
+      </div>
+      <div class="messages">
+        <div class="message you">
+          <div class="message-content">
+            <div class="message-text-container">
+              <div class="time">14:33</div>
+              <div class="text">Bonjour, comment vas-tu aujourd'hui ?</div>
+            </div>
+          </div>
+        </div>
+        <div class="message">
+          <div class="message-content">
+            <img src="https://i.pravatar.cc/150?img=1" alt="Vanessa Tucker">
+            <div class="message-text-container">
+              <div class="sender">Vanessa Tucker</div>
+              <div class="text">Je vais très bien merci ! Et toi ?</div>
+              <div class="time">14:34</div>
+            </div>
+          </div>
+        </div>
+        <div class="message you">
+          <div class="message-content">
+            <div class="message-text-container">
+              <div class="time">14:35</div>
+              <div class="text">Plutôt bien aussi, merci. Tu as fini le projet dont tu m'avais parlé ?</div>
+            </div>
+          </div>
+        </div>
+        <div class="message">
+          <div class="message-content">
+            <img src="https://i.pravatar.cc/150?img=1" alt="Vanessa Tucker">
+            <div class="message-text-container">
+              <div class="sender">Vanessa Tucker</div>
+              <div class="text">Oui, je l'ai finalisé hier soir. Je peux te montrer le résultat si tu veux.</div>
+              <div class="time">14:36</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="input-area">
+        <input type="text" placeholder="Écrivez un message...">
+        <button class="send-button">
+          <svg class="send-icon" viewBox="0 0 24 24" fill="white">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+-->
+<!--<h2>Interface Admin</h2>
+
+<label>Mon ID (Admin) :</label>
+<input type="number" [(ngModel)]="adminId" (change)="init()" /><br /><br />
+
+<label>Choisir un client :</label>
+<select [(ngModel)]="selectedClient" (change)="onClientChange()">
+  <option *ngFor="let client of clients" [ngValue]="client">{{ client.username }}</option>
+</select><br /><br />
+
+<div id="messages">
+  <div *ngFor="let msg of messages" class="message" [ngClass]="msg.sender.id === admin?.id ? 'me' : 'other'">
+    {{ msg.sender.username }}: {{ msg.content }}
+  </div>
+</div>
+
+<textarea [(ngModel)]="content" placeholder="Votre message..."></textarea><br />
+<button (click)="sendMessage()">Envoyer</button>
+-->
+
+<!-- chat-admin.component.html -->
+
+<div class="app-container">
+  <div class="sidebar">
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="filterClients()"
+        placeholder="Rechercher par nom..."
+      />
+    </div>
+    <div class="contact-list">
+      <div
+        *ngFor="let client of filteredClients"
+        class="contact"
+        [ngClass]="{ active: client.id === selectedClient?.id }"
+        (click)="selectClient(client)"
+      >
+        <img
+          [src]="'https://i.pravatar.cc/150?img=' + (client.id % 70 + 1)"
+          [alt]="client.username"
+        />
+        <div class="contact-info">
+          <div class="contact-name">{{ client.username }}</div>
+          <div class="status online">Actif</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat" *ngIf="selectedClient">
+    <div class="chat-header">
+      <img
+        [src]="'https://i.pravatar.cc/150?img=' + (selectedClient.id % 70 + 1)"
+        [alt]="selectedClient.username"
+      />
+      <div class="chat-user-info">
+        <div class="chat-user-name">{{ selectedClient.username }}</div>
+        <div class="chat-user-status online">En ligne</div>
+      </div>
+    </div>
+
+    <div class="messages">
+      <div
+        *ngFor="let msg of messages"
+        class="message"
+        [ngClass]="{ you: msg.sender.id === admin?.id }"
+      >
+        <div class="message-content">
+          <ng-container *ngIf="msg.sender.id !== admin?.id">
+            <img
+              [src]="'https://i.pravatar.cc/150?img=' + (msg.sender.id % 70 + 1)"
+              [alt]="msg.sender.username"
+            />
+          </ng-container>
+          <div class="message-text-container">
+            <div *ngIf="msg.sender.id !== admin?.id" class="sender">
+              {{ msg.sender.username }}
+            </div>
+            <div class="text">{{ msg.content }}</div>
+            <div class="time">{{ msg.timestamp | date:'HH:mm' }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input
+        type="text"
+        [(ngModel)]="content"
+        placeholder="Écrivez un message..."
+        (keyup.enter)="sendMessage()"
+      />
+      <button class="send-button" (click)="sendMessage()">
+        <svg class="send-icon" viewBox="0 0 24 24" fill="white">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

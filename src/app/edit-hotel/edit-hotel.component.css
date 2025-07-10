@@ -1,0 +1,282 @@
+/* Pour occuper toute la page */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh; /* Couvre toute la hauteur de l'écran */
+  box-sizing: border-box; /* Inclut la bordure dans les dimensions */
+font-family: 'Times New Roman', serif;
+}
+
+/* Étendre le conteneur de formulaire */
+/* Étendre le conteneur de formulaire */
+.form-container {
+  height: 100%;
+  width: 100%;
+  padding: 15px 40px;
+  background-color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #b69622; /* Couleur plus foncée pour mieux correspondre à l'image */
+    font-size: 22px; /* Taille de police plus grande */
+  letter-spacing: 1px; /* Espacement entre les lettres */
+
+}
+
+.form-container h2 {
+  color: #b69622;
+  border-bottom: 1px solid #b69622;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+.titre{
+   color: #b69622;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  position: relative;
+  display: inline-block; /* ou flex */
+}
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+  padding: 10px;
+  border: 1px solid #b69d22;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus,
+input[type="file"]:focus,
+textarea:focus {
+  border-color: #b69622;
+}
+input[type="number"],
+input[type="file"],
+textarea {
+  padding: 10px;
+  border: 1px solid #b69d22;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+textarea:focus {
+  border-color: #b69622;
+}
+.rating-stars {
+  display: flex;
+  gap: 5px;
+}
+
+.rating-stars input[type="radio"] {
+  display: none;
+}
+
+.rating-stars label {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars input[type="radio"]:checked + label {
+  color: #b69622;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #8e8977;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #b69622;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.chambres-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chambre-option {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.chambre-option.disponible {
+  border-color: #00c853;
+  background-color: #e8f5e9;
+}
+
+.chambre-option.occupee {
+  border-color: #d32f2f;
+  background-color: #ffebee;
+}
+
+.chambre-option label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chambre-titre {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.chambre-etat {
+  font-size: 12px;
+  color: #666;
+}
+* Sections par type */
+.chambre-type-section {
+  margin-bottom: 30px;
+}
+
+.chambre-type-section h6 {
+  color: #444;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.chambre-type-section h6::before {
+  content: "▫";
+  color: #555;
+  font-size: 35px;
+  margin-right: 8px;
+}
+
+/* Grille de chambres */
+/* Conteneur des types côte à côte */
+.chambre-types-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Section par type */
+.chambre-type-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.chambre-type-section h6 {
+  color: #444;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Grille de chambres */
+.chambres-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100px;
+}
+
+/* Carte de chambre */
+.chambre-option {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.chambre-option:hover {
+  background-color: #f8f8f8;
+}
+
+/* États */
+.chambre-option.disponible {
+  border-left: 3px solid #4CAF50;
+}
+
+.chambre-option:not(.disponible) {
+  border-left: 3px solid #f44336;
+}
+
+/* Texte */
+.chambre-numero {
+  font-weight: 500;
+  color: #333;
+}
+
+.chambre-etat {
+  font-weight: bold;
+}
+
+.chambre-option.disponible .chambre-etat {
+  color: #4CAF50;
+}
+
+.chambre-option:not(.disponible) .chambre-etat {
+  color: #f44336;
+}
+
+/* Message vide */
+.no-chambres {
+  color: #888;
+  font-style: italic;
+  font-size: 0.85rem;
+  padding: 8px 0;
+}
+h6{
+  color: #b69622;
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .chambre-types-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

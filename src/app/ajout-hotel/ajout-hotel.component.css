@@ -1,0 +1,250 @@
+/* Pour occuper toute la page */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh; /* Couvre toute la hauteur de l'écran */
+  box-sizing: border-box; /* Inclut la bordure dans les dimensions */
+font-family: 'Times New Roman', serif;
+}
+
+/* Étendre le conteneur de formulaire */
+.form-container {
+ height: 100%;
+  width: 100%;
+  padding: 15px 40px;
+  background-color: #fff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #b69622; /* Couleur plus foncée pour mieux correspondre à l'image */
+    font-size: 22px; /* Taille de police plus grande */
+  letter-spacing: 1px; /* Espacement entre les lettres */
+}
+
+.form-container h2 {
+  color: #b69622;
+  border-bottom: 1px solid #b69622;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+.titre{
+   color: #b69622;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  position: relative;
+  display: inline-block; /* ou flex */
+}
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #555;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+  padding: 10px;
+  border: 1px solid #b69d22;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+textarea:focus {
+  border-color: #b69d22;
+}
+
+input[type="number"],
+input[type="file"],
+textarea {
+  padding: 10px;
+  border: 1px solid #b69622;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus,
+input[type="file"]:focus,
+textarea:focus {
+  border-color: #9f6c06;
+}
+.rating-stars {
+  display: flex;
+  gap: 5px;
+}
+
+.rating-stars input[type="radio"] {
+  display: none;
+}
+
+.rating-stars label {
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.rating-stars input[type="radio"]:checked ~ label,
+.rating-stars input[type="radio"]:checked + label {
+  color: #b69622;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #ccc;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #b69622;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Conteneur principal */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Conteneur des types côte à côte */
+.chambre-types-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+/* Section par type */
+.chambre-type-section {
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 15px;
+}
+
+.chambre-type-section h6 {
+  color: #b69622;
+  font-size: 18px;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f0f0;
+  text-align: center;
+}
+
+/* Grille de chambres */
+.chambres-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 100px;
+}
+
+/* Carte de chambre */
+.chambre-option {
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+  gap: 12px;
+  background: #fafafa;
+}
+
+.chambre-option:hover {
+  background-color: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+/* États */
+.chambre-option.disponible {
+  border-left: 4px solid #4CAF50;
+}
+
+.chambre-option:not(.disponible) {
+  border-left: 4px solid #f44336;
+}
+
+/* Texte */
+.chambre-titre {
+  font-weight: 600;
+  color: #333;
+  margin-right: auto; /* Pousse l'état vers la droite */
+}
+
+.chambre-etat {
+  font-weight: bold;
+  font-size: 0.9em;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background-color: #f8f8f8;
+}
+
+.chambre-option.disponible .chambre-etat {
+  color: #4CAF50;
+  background-color: #e8f5e9;
+}
+
+.chambre-option:not(.disponible) .chambre-etat {
+  color: #f44336;
+  background-color: #ffebee;
+}
+
+/* Checkbox */
+.chambre-option input[type="checkbox"] {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: #4CAF50;
+}
+
+.chambre-option label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chambre-types-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .chambre-type-section {
+    padding: 12px;
+  }
+}
+

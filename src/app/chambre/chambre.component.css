@@ -1,0 +1,328 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: sans-serif;
+}
+
+/* Image de fond pleine page */
+.background {
+  background: url('../../assets/images/BackgroundHome.png') no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* Container des cartes */
+.cards {
+   margin-bottom: 60px;
+  display: flex;
+  gap: 30px;
+}
+
+/* Style d'une carte */
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  margin-bottom: 60px;
+  border-radius: 16px;
+  width: 350px;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 14px;
+}
+
+.btn {
+  background-color: #f4b400;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.info {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.desc {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 20px;
+  color: #ddd;
+}
+
+.title-section {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.title-section .select {
+  font-family: 'Brush Script MT', cursive;
+  margin-bottom: 45px;
+  font-size: 85px;
+  color: #f4b400;
+}
+
+.title-section .rooms {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.tag {
+  background-color: orange;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/*loading css */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/loading.png') no-repeat center center;
+  background-size: cover;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.loading-screen {
+  background: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-brand {
+  text-align: center;
+  color: white;
+}
+
+.loading-brand h1 {
+  font-size: 2.5rem;
+  font-family: 'Georgia', serif;
+  margin: 0;
+}
+
+.loading-brand h2 {
+  font-size: 1rem;
+  letter-spacing: 5px;
+  font-weight: 300;
+}
+
+.loading-dots span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 5px 3px;
+  background-color: white;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes blink {
+  0%, 80%, 100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+/* ========== MEDIA QUERIES ========== */
+@media (max-width: 1200px) {
+  .cards {
+    gap: 20px;
+  }
+  
+  .card {
+    width: 280px;
+  }
+}
+
+@media (max-width: 992px) {
+  .background {
+    padding: 30px;
+  }
+  
+  .cards {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card {
+    width: 45%;
+    max-width: 320px;
+    margin-bottom: 30px;
+  }
+  
+  .title-section .select {
+    font-size: 70px;
+  }
+  
+  .title-section .rooms {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .background {
+    height: auto;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .title-section .select {
+    font-size: 60px;
+  }
+  
+  .title-section .rooms {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+  
+  .loading-brand h1 {
+    font-size: 2rem;
+  }
+  
+  .loading-brand h2 {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .background {
+    padding: 15px;
+  }
+  
+  .title-section .select {
+    font-size: 50px;
+  }
+  
+  .title-section .rooms {
+    font-size: 18px;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+  
+  .card img {
+    height: 150px;
+  }
+  
+  .btn {
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  .title-section .select {
+    font-size: 40px;
+  }
+  
+  .title-section .rooms {
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+  }
+  
+  .loading-brand h1 {
+    font-size: 1.5rem;
+  }
+  
+  .loading-brand h2 {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+}
+/*boutton exit*/
+.exit-bottom {
+  position: fixed;
+  bottom: 20px;
+  left: 20px; /* mets right: 20px si tu veux l'icône à droite */
+  z-index: 1000;
+}
+
+.exit-icon {
+  font-size: 18px;
+  color: #fff;
+  padding: 10px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.exit-icon:hover {
+ color: #d88a00;
+}
