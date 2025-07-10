@@ -130,12 +130,12 @@ onSave(): void {
   });
 
   this.permissionService.savePermissions(payload).subscribe({
-    next: () => this.toastr.success('<span class="toast-msg">Inscription réussie</span>', '', {
+    next: () => this.toastr.success('<span class="toast-msg">Permissions modifiées avec succès</span>', '', {
       timeOut: 6000,
       progressBar: true,
       enableHtml: true
     }),
-    error: (error) => {
+    error: (error: any) => {
       console.error("Erreur lors de l’enregistrement :", error);
       this.toastr.error('<span class="toast-msg">Erreur lors de la sauvegarde', '', {
         timeOut: 5000,
