@@ -157,9 +157,12 @@
   </div>
 
   <div class="chat-body">
-    <label>Mon ID (Client) :</label>
-    <input type="number" [(ngModel)]="clientId" (change)="onClientIdChange()" placeholder="Entrez votre ID" />
-
+  <select [(ngModel)]="clientName" (change)="onClientSelect()">
+  <option value="">Sélectionnez un client</option>
+  <option *ngFor="let client of clients" [value]="client.username">
+    {{ client.username }}
+  </option>
+</select>
     <div class="messages" *ngIf="initialized">
       <div
         *ngFor="let msg of messages"

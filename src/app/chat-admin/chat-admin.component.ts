@@ -26,23 +26,20 @@ export class ChatAdminComponent implements OnInit, OnDestroy {
 
   async loadAdminAndClients(): Promise<void> {
     try {
-      // Supposons que vous ayez un admin avec ID 1 (ou autre selon votre logique)
-      const users = (await this.chatService.getAllUsers()) as User[];
-      this.admin = users.find(u => u.role === 'ADMIN') || null;
+      const users = await this.chatService.getAllUsers();
+      if (!users) {
+        console.error('Aucun utilisateur trouvé');
+        return;
+      }
 
+      this.admin = users.find(u => u.role === 'ADMIN') || null;
       if (!this.admin) {
         console.error('Aucun admin trouvé');
         return;
       }
 
-      const allMessages = (await this.chatService.getMessages(this.admin.id)) as Message[];
-      const clientIds = [...new Set(allMessages.map(m => 
-        m.sender.role === 'CLIENT' ? m.sender.id : m.receiver.id
-      ))];
-      
-      this.clients = users.filter(u => 
-        u.role === 'CLIENT' && clientIds.includes(u.id)
-      );
+      // Charger tous les clients
+      this.clients = users.filter(u => u.role === 'CLIENT');
       this.filteredClients = [...this.clients];
       
       if (this.clients.length > 0) {
@@ -69,12 +66,20 @@ export class ChatAdminComponent implements OnInit, OnDestroy {
     if (!this.admin || !this.selectedClient) return;
 
     try {
-      const allMessages = (await this.chatService.getMessages(this.admin.id)) as Message[];
-      this.messages = allMessages.filter(
-        (m) =>
+      // Utilisation de getMessages au lieu de getAllMessages
+      const messages = await this.chatService.getMessages(this.admin.id);
+      if (!messages) {
+        console.error('Aucun message trouvé');
+        return;
+      }
+
+      this.messages = messages.filter(
+        (m: Message) =>
           (m.sender.id === this.admin!.id && m.receiver.id === this.selectedClient!.id) ||
           (m.sender.id === this.selectedClient!.id && m.receiver.id === this.admin!.id)
-      ).sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+      ).sort((a: Message, b: Message) => 
+        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+      );
     } catch (error) {
       console.error('Erreur lors du chargement des messages', error);
     }
@@ -85,8 +90,16 @@ export class ChatAdminComponent implements OnInit, OnDestroy {
 
     try {
       await this.chatService.sendMessage({
-        sender: { id: this.admin.id, role: 'ADMIN' },
-        receiver: { id: this.selectedClient.id, role: 'CLIENT' },
+        sender: { 
+          id: this.admin.id, 
+          role: this.admin.role,
+          username: this.admin.username 
+        },
+        receiver: { 
+          id: this.selectedClient.id, 
+          role: this.selectedClient.role,
+          username: this.selectedClient.username
+        },
         content: this.content.trim(),
         timestamp: new Date().toISOString()
       });
@@ -94,7 +107,7 @@ export class ChatAdminComponent implements OnInit, OnDestroy {
       this.content = '';
       await this.loadMessages();
     } catch (error) {
-      console.error('Erreur lors de l envoi du message', error);
+      console.error('Erreur lors de l\'envoi du message', error);
     }
   }
 

@@ -7,21 +7,33 @@ import { ChatService, User, Message } from '../Services/chat.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  clientId: number | null = null;
+  clientName: string = '';
   client!: User;
   admin!: User;
   messages: Message[] = [];
   content: string = '';
   initialized = false;
+  clients: User[] = [];
 
   constructor(private chatService: ChatService) {}
 
   ngOnInit() {
+    this.loadClients();
     setInterval(() => this.loadMessages(), 4000);
   }
 
-  async onClientIdChange() {
-    if (!this.clientId) return;
+  async loadClients() {
+    try {
+      const users = await this.chatService.getAllUsers();
+      this.clients = users ? users.filter(u => u.role === 'CLIENT') : [];
+    } catch (error) {
+      console.error('Erreur lors du chargement des clients:', error);
+      this.clients = [];
+    }
+  }
+
+  async onClientSelect() {
+    if (!this.clientName) return;
 
     try {
       const users = await this.chatService.getAllUsers();
@@ -31,7 +43,7 @@ export class ChatComponent implements OnInit {
         return;
       }
 
-      const foundClient = users.find(u => u.id === this.clientId && u.role === 'CLIENT');
+      const foundClient = users.find(u => u.username === this.clientName && u.role === 'CLIENT');
       if (!foundClient) {
         alert('Client introuvable !');
         return;
@@ -52,7 +64,12 @@ export class ChatComponent implements OnInit {
       if (adminMessage) {
         this.admin = adminMessage.sender.role === 'ADMIN' ? adminMessage.sender : adminMessage.receiver;
       } else {
-        this.admin = users.find(u => u.role === 'ADMIN')!;
+        const admin = users.find(u => u.role === 'ADMIN');
+        if (admin) {
+          this.admin = admin;
+        } else {
+          throw new Error('Aucun administrateur trouvé');
+        }
       }
 
       this.initialized = true;
