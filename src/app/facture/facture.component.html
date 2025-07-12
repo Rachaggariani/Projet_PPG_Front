@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seaside Hotel - Room</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .background {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .room-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .room-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .meta-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #ffd700;
+      margin-left: auto;
+    }
+
+    .btn-book {
+      background: #d69f06;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin-left: auto;
+    }
+
+    .btn-book:hover {
+      background: #ebc35f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(163, 83, 4, 0.4);
+    }
+
+    .room-description {
+      flex: 1;
+    }
+
+    h3 {
+      color: #cdc29c;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 10px;
+      /* Espace entre le texte et la ligne */
+    }
+
+    h3::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 34%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.638);
+    }
+
+    .overview p {
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+
+    .checkmark {
+      color: #7e5104;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+     .méthodePaiment {
+      color: #000000;
+      display: flex; 
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="background">
+    <div #invoiceContent class="facture-card" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <form  class="facture-form" #reservationForm="ngForm">
+          <div class="buttonWrapper">
+            <button type="button" class="downloadButton" (click)="downloadInvoice($event)">
+              <img src="../assets/images/download_button.png" alt="Download">
+            </button>
+          </div>
+
+          <h3 class="formTitle">Facture</h3>
+          <div style="display: flex;  justify-content: flex-end; gap: 10px;">
+            <label class="formLabels">Facture N°:</label>
+            <p class="formtext">1852585</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Nom & Prénom:</label>
+            <p class="formtext">{{ clientName }}</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Hôtel:</label>
+            <p class="formtext">{{ hotelName$ | async }}</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Type chambre:</label>
+            <p class="formtext">{{ reservationData.roomType }}</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Nombre personnes:</label>
+            <p class="formtext">{{ reservationData.guestCount }}</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Date entrée:</label>
+            <p class="formtext">{{ reservationData.checkInDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Date sortie:</label>
+            <p class="formtext">{{ reservationData.checkOutDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Période:</label>
+            <p class="formtext">{{ totalNights }} nuités / {{ totalNights + 1 }} jours</p>
+          </div>
+          <label class="formLabels">Détails montant à payer:</label>
+
+          <!-- Update the invoice details section -->
+          <div style="display: block; margin-top: 20px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <label class="detailsFacture">{{ reservationData.roomType }}:</label>
+              <p class="formtext">{{ reservationData.roomPrice }}*{{ totalNights }}= {{ reservationData.roomPrice * totalNights | number:'1.0-2' }} TND</p>
+            </div>
+            <div *ngFor="let service of reservationData.selectedServices" style="display: flex; align-items: center; gap: 10px;">
+              <label class="detailsFacture">{{ service.label }}:</label>
+              <p class="formtext">{{ service.price }} *{{ reservationData.guestCount }} pers * {{ totalNights }} jours= {{ service.price * reservationData.guestCount * totalNights | number:'1.0-2' }} TND</p>
+            </div>
+            <!-- Rest of your invoice details -->
+          </div>
+          <!-- Total Price -->
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">TOTAL:</label>
+            <p class="formtext">{{ calculateTotal() }} TND</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Paiement:</label>
+            <label class="formtext" >Espèce</label>
+            <input type="radio" (click)="PaymentMessage()" class="formtext">
+            <label class="formtext">Carte bancaire</label>
+            <input type="radio" class="formtext" (click)="navigateToPaiementCarte()">
+          </div>
+          <!-- Update buttons -->
+          <div style="display: flex; gap: 10px; justify-content: center;">
+            <button class="btn" (click)="navigateToReservation()">Retour</button>
+            <button class="btn" (click)="navigateToAccueil()">Accueil</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</body>
+
+</html>

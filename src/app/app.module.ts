@@ -8,6 +8,9 @@ import { AuthComponent } from './auth/auth.component';
 import { ChambreComponent } from './chambre/chambre.component';
 import { ChatComponent } from './chat/chat.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { FactureComponent } from './facture/facture.component';
+import { PaiementEspeceComponent } from './paiement_espece/paiementEspece.component';
+import { PaiementCarteComponent } from './paiement_carte/paiementCarte.component';
 import { HabilitationComponent } from './habilitation/habilitation.component';
 import { ChatAdminComponent } from './chat-admin/chat-admin.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +25,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { TokenInterceptorService } from './Services/token-interceptor.service';
+import { RadioButtonModule } from 'primeng/radiobutton';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -33,6 +37,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChambreComponent,
     ChatComponent,
     ReservationComponent,
+    FactureComponent,
+    PaiementEspeceComponent,
+    PaiementCarteComponent,
     HabilitationComponent,
     ChatAdminComponent,
     AjoutHotelComponent,
@@ -45,15 +52,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule, // <-- Ajoutez ce module
     HttpClientModule, // <-- Ajoutez ce module
     AppRoutingModule,
-     BrowserAnimationsModule, // Doit être avant ToastrModule
- ToastrModule.forRoot({
-  toastClass: 'ngx-toastr', // Doit correspondre à votre classe CSS
-  positionClass: 'toast-top-right',
-  timeOut: 4000,
-  closeButton: true,
-  progressBar: false, // Désactivé pour plus de propreté
-  tapToDismiss: false,
-  enableHtml: true
+    BrowserAnimationsModule, // Doit être avant ToastrModule
+    RadioButtonModule,
+    ToastrModule.forRoot({
+    toastClass: 'ngx-toastr', // Doit correspondre à votre classe CSS
+    positionClass: 'toast-top-right',
+    timeOut: 4000,
+    closeButton: true,
+    progressBar: false, // Désactivé pour plus de propreté
+    tapToDismiss: false,
+    enableHtml: true
 }),
   TranslateModule.forRoot({
       defaultLanguage: 'fr',

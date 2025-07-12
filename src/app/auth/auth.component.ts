@@ -1,9 +1,12 @@
 import { Component, OnInit , ChangeDetectorRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../models/LoginRequest';
 import { AuthService } from '../Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auth',
@@ -56,6 +59,9 @@ export class AuthComponent implements OnInit {
 
     this.authService.authenticate(loginData).subscribe({
       next: () => {
+        localStorage.setItem('currentUser', JSON.stringify({
+          username: loginData.username, 
+        }));
         this.router.navigate(['/home']);
         this.invalidLogin = false;
       },
@@ -143,5 +149,14 @@ onSignUp() {
   if (!/^\d$/.test(inputChar)) {
     event.preventDefault(); // empêche les lettres ou caractères spéciaux
   }
+}
+// Add to your AuthService
+private currentUserSubject = new BehaviorSubject<any>(null);
+
+
+getCurrentUser(): { username: string, name?: string } {
+  return {
+    username: sessionStorage.getItem('username') || '',
+  };
 }
 }

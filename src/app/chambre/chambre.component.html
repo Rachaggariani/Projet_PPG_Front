@@ -60,7 +60,7 @@
           <button 
             class="btn" 
             [disabled]="!roomType.available"
-          (click)="navigateToChambres(roomType.key)">
+          (click)="navigateToReservation(roomType.key)">
             {{ roomType.available ? ('Réserver maintenant' | translate) : ('COMPLET' | translate) }}
           </button>
         </div>
