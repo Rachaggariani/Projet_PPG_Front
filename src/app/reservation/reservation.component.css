@@ -20,7 +20,20 @@ body, html {
   padding: 20px;
 }
 
-.room-card {
+.btn {
+  background-color: #f4b400;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 0;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 90px;
+}
+
+.reservation-card {
   background: rgba(116, 113, 113, 0.2);
   backdrop-filter: blur(10px);
   color: #fff;
@@ -28,7 +41,15 @@ body, html {
   border-radius: 10px;
   width: 100%;
   max-width: 1100px;
-  min-height: 680px;
+  height: 900px;
+  display: block;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  position: relative;
+}
+.room-content {
+  display: flex;
+  justify-content: center;
 }
 
 .room-images {
@@ -67,35 +88,53 @@ body, html {
   color: #f4a543;
 }
 
+
 .btn-book {
-  background-color: #f4a543;
-  border: none;
-  padding: 10px 20px;
+  background: #d69f06;
   color: white;
-  border-radius: 5px;
-  font-weight: bold;
+  margin-left:100px;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: all 0.3s;
+  width: 300px;
+  margin-top: 10px;
 }
 
 .btn-book:hover {
   background-color: #e6953a;
 }
-
+ input[type="date"] {
+        flex: 1;
+        background-color: #cccccc;
+        max-width: 150px;
+        height: 35px;
+        margin-right:10px;
+        margin-left:10px;
+        margin-bottom:-5px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
 .room-description {
   display: flex;
-  gap: 40px;
+  gap: 25px;
   flex-wrap: wrap;
 }
 
-.overview, .facilities {
+.overview, .services {
   flex: 1;
   min-width: 250px;
 }
 
 h3 {
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   letter-spacing: 1px;
   color: #f4a543;
   text-transform: uppercase;
@@ -105,45 +144,69 @@ h3 {
   font-size: 14px;
   line-height: 1.6;
   color: #fff;
+  margin-bottom:-10px;
 }
 
-.facilities ul {
+.services ul {
   list-style: none;
 }
 
-.facilities li {
+.services li {
   font-size: 14px;
   margin-bottom: 8px;
   color: #fff;
 }
 
-.facility-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+ .service-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
 
-.facility-list li {
+.service-list li {
+  display: flex;
+  align-items: center;
   margin-bottom: 8px;
   font-size: 14px;
   font-weight: 400;
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
 }
 
-.checkmark {
+.serviceRadioButton {
   color: #f4a543;
   margin-right: 8px;
-  font-size: 30px;
+  font-size: 16px;
   line-height: 1;
   margin-top: 2px;
 }
 
+.service-list input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ccc; /* Default unselected color */
+  margin-right: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.service-list input[type="radio"]:checked {
+  background-color: #f4b400; /* Yellow filled circle when selected */
+}
+
+
+
 /* Media Queries pour le responsive */
 @media (max-width: 768px) {
-  .room-card {
+  .reservation-card {
     padding: 15px;
     width: 95%;
+    min-height:1500px;
   }
   
   .room-images {
@@ -160,15 +223,8 @@ h3 {
     flex-direction: column;
     align-items: flex-start;
   }
+ 
   
-  .btn-book {
-    width: 100%;
-    margin-top: 10px;
-  }
-  
-  .room-description {
-    gap: 20px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -180,7 +236,7 @@ h3 {
     font-size: 13px;
   }
   
-  .overview, .facilities {
+  .overview, .services {
     min-width: 100%;
   }
 }

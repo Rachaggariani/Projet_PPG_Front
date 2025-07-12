@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body, html {
+  height: 100%;
+}
+
+.background {
+  background-image: url('../../assets/images/BackgroundHome.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.reservation-form {
+  background: rgba(238, 232, 219, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 900px;
+  height: 750px;
+  margin: 20px 0;
+}
+
+.btn {
+  background-color: #f4b400;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 0;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 90px;
+}
+
+.btnConfirmationPaiement {
+  background-color: #4ab922cb;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 0;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end; /* Aligns button to the right */
+  padding: 10px; /* Optional */
+}
+
+.downloadButton {
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.downloadButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.formTitle {
+  text-align: center;
+  margin: 5px;
+  margin-top: -5px;
+  font-size: 60px;
+  color: #f4b400;
+}
+
+.formLabels{
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.formtext{
+  color: black;
+  font-size: 20px;
+}
+

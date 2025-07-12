@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seaside Hotel - Room</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .background {
+      padding: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+
+    /* Animation de swipe */
+    .payment-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, rgba(30, 60, 114, 0.8) 0%, rgba(42, 82, 152, 0) 100%);
+      z-index: 1;
+      animation: swipeAnimation 1.5s ease-out forwards;
+    }
+
+    @keyframes swipeAnimation {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+    }
+
+    
+    .btn-book {
+      background: #d69f06;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+      margin-left: auto;
+    }
+
+    .btn-book:hover {
+      background: #ebc35f;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(163, 83, 4, 0.4);
+    }
+
+    .room-description {
+      flex: 1;
+    }
+
+    h3 {
+      color: #cdc29c;
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 10px;
+      /* Espace entre le texte et la ligne */
+    }
+
+    h3::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 34%;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.638);
+    }
+
+    .overview p {
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+
+    .checkmark {
+      color: #7e5104;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+     .méthodePaiment {
+      color: #000000;
+      display: flex; 
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="background">
+    <div #invoiceContent class="card_payment" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div class="buttonWrapper">
+            <button type="button" class="downloadButton" (click)="downloadInvoice($event)">
+                <img src="../assets/images/download_button.png" alt="Download">
+            </button>
+        </div>
+
+        <h3 class="formTitle">Données carte bancaire</h3>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Numéro de la carte *:</label>
+            <input type="text">
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Date d'expiration (MM/AA) *:</label>
+            <input type="text">
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Code de la carte *:</label>
+            <input type="text">
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Nom du déteneur *:</label>
+            <input type="text">
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <label class="formLabels">Mail:</label>
+            <input type="text">
+        </div>
+        <button class="btnConfirmationPaiement">Confirmer paiement</button>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+        <button class="btn" (click)="navigateToFacture()">Retour</button>
+        <button class="btn" (click)="navigateToAccueil()">Accueil</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

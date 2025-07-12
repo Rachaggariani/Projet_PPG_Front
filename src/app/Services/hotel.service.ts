@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError, of,tap } from 'rxjs';
 
 export interface Hotel {
   id?: number;
@@ -27,6 +27,7 @@ export class HotelService {
 
   private apiUrl = 'http://localhost:8080/hotels';
   private jsonHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private hotelsCache = new Map<number, string>();
 
   constructor(private http: HttpClient) { }
 
@@ -37,6 +38,15 @@ export class HotelService {
   getHotelById(id: number): Observable<Hotel> {
     return this.http.get<Hotel>(`${this.apiUrl}/${id}`);
   }
+  getHotelName(id: number): Observable<string> {
+  return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+    map(response => {
+      // Handle both possible property names
+      return response.nomHotel || response.nom_hotel || 'Hôtel inconnu';
+    }),
+    catchError(() => of('Erreur de chargement'))
+  );
+}
   createHotel(formData: FormData): Observable<any> {
     return this.http.post(this.apiUrl, formData);
   }

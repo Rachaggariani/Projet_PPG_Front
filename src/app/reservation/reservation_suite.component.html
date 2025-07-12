@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Réservation</title>
+  <title>Réservation suite</title>
   <style>
     body {
       margin: 0;
@@ -240,10 +241,9 @@
       <div class="room-content">
         <div class="room-images">
           <div class="image-slider">
-            <!-- Dynamic slides based on room type -->
-            <div class="slide" [ngStyle]="{'background-image': 'url(' + roomImages[0] + ')'}"></div>
-            <div class="slide" [ngStyle]="{'background-image': 'url(' + roomImages[1] + ')'}"></div>
-            <div class="slide" [ngStyle]="{'background-image': 'url(' + roomImages[2] + ')'}"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
           </div>
           <div class="slider-controls">
             <div class="slider-dot"></div>
@@ -254,53 +254,87 @@
 
         <div class="room-info">
           <div class="room-meta">
-            <!-- Dynamic room details -->
-            <div class="meta-item">👤 {{guestCount}} invités</div>
-            <div class="meta-item">📏 {{roomSize}} m²</div>
-            <div class="meta-item price">{{roomPrice}} TND / Nuit</div>
+            <div class="meta-item">👤 4 invités</div>
+            <div class="meta-item">📏 200 m²</div>
+            <div class="meta-item price">1700 TND / Nuit</div>
             <div>
-              <label for="checkin">Date d'entrée:</label>
-              <input type="date" [(ngModel)]="checkInDate" name="checkInDate" required>
-              <label for="checkout">Date de sortie:</label>
-              <input type="date" [(ngModel)]="checkOutDate" name="checkOutDate" required>
-            </div>
-            <button type="button" class="btn-book" (click)="navigateToFacture()">Reserver maintenant</button>
+            <label for="date">Date d'entrée:</label>
+            <input type="date" id="date" name="date">
+            <label for="date">Date de sortie:</label>
+            <input type="date" id="date" name="date">
+          </div>
+            <button class="btn-book" (click)="navigateToFacture()">Reserver maintenant</button>
           </div>
           
           <div class="room-description">
             <div class="overview">
               <h3>Description de la chambre</h3>
               <p>
-                {{roomDescription}}
+                Cette chambre spacieuse avec lit King Size offre un cadre élégant et chaleureux, idéal pour accueillir jusqu’à 4 personnes. Pensée pour le confort et la détente, elle dispose d’un matelas haut de gamme, d’une literie soyeuse, d’une salle de bain moderne. Profitez également d’une connexion WiFi haut débit, d’une télévision HD, d’un coin café/thé, et d’une vue agréable sur les environs. Parfaite pour les séjours en famille, en couple ou entre amis, cette chambre allie praticité et raffinement pour un séjour inoubliable.
               </p>
             </div>
-            <div>
+            <div >
               <h3>Atouts</h3>
               <ul class="service-list">
-                <li *ngFor="let feature of roomFeatures">
-                  <span class="serviceRadioButton">✔</span> {{feature}}
-                </li>
+                <li><span class="serviceRadioButton">✔</span> Lit King Size ultra-confortable</li>
+                <li><span class="serviceRadioButton">✔</span> Téléviseur HD 48" avec plus de 60 chaînes</li>
+                <li><span class="serviceRadioButton">✔</span> Machine à café et à thé</li>
+                <li><span class="serviceRadioButton">✔</span> Bain chaud et froid</li>
+                <li><span class="serviceRadioButton">✔</span> Connexion Internet WiFi gratuite</li>
               </ul>
             </div>
             <div class="services">
               <h3>Services</h3>
               <ul class="service-list">
-                <li *ngFor="let service of availableServices">
+                <li>
                   <label>
-                    <input type="checkbox" name="service" class="serviceRadioButton" [value]=" service.value"[checked]="isServiceSelected(service.value)" (change)="onServiceSelect(service, $event)">
-                    {{service.label}} ({{service.price}} TND)
+                    <input type="radio" name="service" class="serviceRadioButton" value="demi_pension">
+                    Demi-pension
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="service" class="serviceRadioButton" value="pension_complete">
+                    Pension complète
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="service" class="serviceRadioButton" value="jacuzzi">
+                    Jacuzzi
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="service" class="serviceRadioButton" value="spa_massage">
+                    Spa & massages
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="service" class="serviceRadioButton" value="service_chambre">
+                    Service de chambre 24h/24
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="service" class="serviceRadioButton" value="navette">
+                    Navette aéroport
                   </label>
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
       </div>
       <div style="display: flex; gap: 10px; justify-content: center;">
-        <button class="btn" (click)="navigateToChambres()">Retour</button>
+        <button class="btn" (click)="navigateToTypeChambre()">Retour</button>
         <button class="btn" (click)="navigateToAccueil()">Accueil</button>
       </div>
     </div>
+    
   </div>
 </body>
+
 </html>

@@ -136,20 +136,15 @@ export class ChambreComponent implements OnInit {
       return 1; // Default to 1 if type is unknown
   }
 }
-navigateToChambres(roomTypeKey: string): void {
-  this.isLoading = true;
 
-  setTimeout(() => {
-    // Redirige vers réservation avec queryParam "type" et hotelId
-    this.router.navigate(['/reservation'], {
-      queryParams: {
-        type: roomTypeKey,
-        hotelId: this.hotelId
-      }
-    });
-
-     this.isLoading = false;
-  }, 2000); // ⏱️ délai simulé de 2 secondes (tu peux mettre 60000 si tu veux 1 minute)
-}
-
+ navigateToReservation(roomType: string) {
+    this.isLoading = true;
+    
+    setTimeout(() => {
+      this.router.navigate(['/reservation', this.hotelId, roomType], { 
+        queryParams: {} 
+      });
+      this.isLoading = false;
+    }, 2000);
+  }
 }
